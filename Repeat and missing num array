@@ -1,0 +1,21 @@
+#include <bits/stdc++.h> 
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here 
+	vector<int>v(arr.size()+1);
+    pair<int,int>ans;
+    for(auto i:arr)
+    {
+        v[i]++;
+    }
+    for(int i=0;i<v.size();i++)
+    {
+        if(v[i]==2)
+        ans.second=i;
+
+        if(v[i]==0)
+        ans.first=i;
+    }
+    return ans;
+}
