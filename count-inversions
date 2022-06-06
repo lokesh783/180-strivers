@@ -1,0 +1,62 @@
+#include <bits/stdc++.h> 
+
+void merge(int i,int mid,int j,long long *arr, long long &ans)
+{
+    int sz = j-i+1;
+    long long a[sz];
+    int m=0,n=0,o=0;
+    while(m<=mid-i && n<=j-mid-1)
+    {
+        if(arr[i+m]>arr[mid+1+n])
+        {
+            a[o]=arr[mid+1+n];
+            n++;
+            ans = ans + mid - i - m + 1;
+        }else
+        {
+            a[o]=arr[i+m];
+            m++;
+        }
+        o++;
+    }
+    
+    while(m<=mid-i)
+    {
+        a[o]=arr[i+m];
+        m++;
+        o++;
+    }
+    while(n<=j-mid-1)
+    {
+        a[o]=arr[mid+n+1];
+        n++;
+        o++;
+    }
+    
+    for(int l=0;l<sz;l++)
+    {
+        arr[i] = a[l];
+        i++;
+    }
+}
+
+void mergesort(int i,int j,long long *arr, long long &ans)
+{
+    if(i<j)
+    {
+        int mid = (i+j)/2;
+        mergesort(i,mid,arr,ans);
+        mergesort(mid+1,j,arr,ans);
+        merge(i,mid,j,arr,ans);
+    }
+}
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+    // 2 5 1      3 4
+//        2 5   1         3 4
+//     2 + 2 =4
+    long long ans=0;
+    mergesort(0,n-1,arr,ans);
+//     for(int i=0;i<n;i++) cout<<arr[i]<<" ";
+    return ans;
+}
