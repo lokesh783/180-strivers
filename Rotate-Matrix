@@ -1,0 +1,61 @@
+#include <bits/stdc++.h> 
+
+void rotateMatrix(vector<vector<int>> &mat, int n, int m)
+{
+    // Write your code here
+    if(n==1 || m==1) return ;
+    int prev ;
+    int curr = 0;
+    int dir = 0;
+    int top = 0 , left = 0 , right = m-1 , bottom = n-1;
+    prev = mat[min(1,bottom)][0];
+    while(top<=bottom && left<=right)
+    {
+//         if(curr)
+//         {
+//             prev = mat[left][top+1];
+            
+//         }
+        
+        if(dir==0)
+        {
+            for(int i=left;i<=right;i++)
+            {
+                swap(mat[top][i],prev);
+            }
+            top++;
+        }else if(dir==1)
+        {
+            for(int i=top;i<=bottom;i++)
+            {
+                swap(mat[i][right],prev);
+            }
+            right--;
+        }else if(dir==2)
+        {
+            for(int i=right;i>=left;i--)
+            {
+                swap(mat[bottom][i],prev);
+            }
+            bottom--;
+        }else
+        {
+            for(int i=bottom;i>=top;i--)
+            {
+                swap(mat[i][left],prev);
+            }
+            left++;
+//             curr = 1;
+//             if(top+1<=bottom)
+//             {
+//                 prev = mat[left][top+1];
+//             }else
+            prev = mat[min(top+1,bottom)][left];
+            if(top==bottom || left==right) return;
+//             cout<<prev<<endl;
+        }
+//         if(top>bottom && left>right)
+//             return;
+        dir = (dir+1)%4;
+    }
+}
