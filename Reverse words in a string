@@ -1,0 +1,34 @@
+#include <stack>
+
+string reverseString(string str)
+{
+    // Write your code here.
+    stack<string>st;
+    string s="";
+    string a="";
+    for(auto i:str)
+    {
+        
+        if(i!=' ')
+        {
+            a+=i;
+        }else
+        {
+            a+=' ';
+            st.push(a);
+            a="";
+        }
+        
+    }
+    a+=' ';
+    st.push(a);
+    
+    
+    while(!st.empty())
+    {
+        if(st.top()!=" ")
+        s+=st.top();
+        
+        st.pop();
+    }return s;
+}
