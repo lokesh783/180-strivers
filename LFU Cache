@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+class LFUCache
+{
+public:
+    map<int,int>mp;
+    map<int,int>m1;
+    int cnt=0;
+    int cap;
+    LFUCache(int capacity)
+    {
+        // Write your code here.
+       cap = capacity;
+    }
+
+    int get(int key)
+    {
+        // Write your code here.
+        if(mp.find(key)!=mp.end())
+        {
+            m1[key]++;
+            return mp[key];
+        }
+        
+        return -1;
+    }
+
+    void put(int key, int value)
+    {
+        // Write your code here.
+        if(mp.find(key)!=mp.end())
+        {
+            mp[key] = value;
+            m1[key]++;
+        }
+        if(cnt<cap)
+        {
+            mp[key]=value;
+            m1[key]=0;
+            cnt++;
+        }else
+        {
+            int val=INT_MAX;
+            int check ;
+            for(auto i:m1)
+            {
+                if(i.second<val)
+                {
+                    val = i.second;
+                    check = i.first;
+                }
+            }
+            mp.erase(check);
+            mp[key]=value;
+            m1[key]=0;
+        }
+    }
+};
