@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+
+vector<int> slidingWindowMaximum(vector<int> &nums, int &k)
+{
+    //    Write your code here.
+    vector<int>v;
+    deque<int>dq;
+    for(int i=k-1;i>=0;i--)
+    {
+        if(dq.empty())
+            dq.push_front(nums[i]);
+        else
+        {
+            if(dq.front()<=nums[i])
+            {
+                dq.push_front(nums[i]);
+            }
+        }
+    }
+//     while(!dq.empty())
+//     {
+//         cout<<dq.front();
+//         dq.pop_front();
+//     }
+    v.push_back(dq.front());
+    for(int i=k;i<nums.size();i++)
+    {
+        if(nums[i-k]==dq.front())
+        {
+            dq.pop_front();
+        }
+        while(!dq.empty() && dq.back()<nums[i])
+        {
+            dq.pop_back();
+        }
+        dq.push_back(nums[i]);
+        v.push_back(dq.front());
+    }
+    return v;
+}
